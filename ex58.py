@@ -130,7 +130,8 @@ def get_2022_usd_avg(cur):
            FROM rate, currency
            WHERE rate.currency_id = currency.id
            AND currency.currency = 'USD'
-           AND strftime('%Y', rate.date) = '2022';""")
+           AND strftime('%Y', rate.date) = '2022';"""
+    )
 
     return res.fetchone()
 
@@ -142,7 +143,8 @@ def study_drill_4(cur):
            WHERE rate.currency_id = currency.id
            AND rate.rate is null
            GROUP BY currency.currency
-           ORDER BY total DESC;""")
+           ORDER BY total DESC;"""
+    )
 
     return res.fetchall()
 
@@ -172,10 +174,10 @@ if __name__ == "__main__":
     insert_rate_record(con, cur, rate_records, currencies)
     update_na_to_null(con, cur)
     display_rates(cur)
-    
+
     avg_2022 = get_2022_usd_avg(cur)
     print(f"The average for USD in 2022 is {avg_2022[0]}")
-    
+
     jpy_min = get_jpy_min(cur)
     print(f"The minimum rate of JPY for all years is {jpy_min[0]}")
 
